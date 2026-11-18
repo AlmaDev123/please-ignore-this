@@ -1,0 +1,1073 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintSmart 360 | Printlab Malaysia</title>
+
+    <style>
+        :root {
+            --primary: #2679f5;
+            --dark: #101d32;
+            --bg: #f4f7fc;
+            --white: #ffffff;
+            --text: #1d2939;
+            --muted: #8491a5;
+            --border: #e6eaf0;
+            --green: #16a36a;
+            --orange: #e6a23c;
+            --red: #e45858;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 250px;
+            background: var(--dark);
+            color: white;
+            padding: 25px 16px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 5px 10px 35px;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 22px;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+        }
+
+        .logo small {
+            display: block;
+            color: #9baec7;
+            margin-top: 5px;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .nav-label {
+            color: #8192aa;
+            font-size: 11px;
+            margin: 15px 12px;
+            text-transform: uppercase;
+        }
+
+        .nav-btn {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #b7c4d6;
+            text-align: left;
+            padding: 13px 14px;
+            margin: 3px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #263c59;
+            color: white;
+        }
+
+        .nav-btn.active {
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Main */
+
+        main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px 35px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .user {
+            background: white;
+            padding: 11px 17px;
+            border-radius: 9px;
+            font-size: 13px;
+            border: 1px solid var(--border);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .section-title {
+            margin: 25px 0 16px;
+            font-size: 17px;
+        }
+
+        /* Cards */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 17px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 27px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .blue { color: var(--primary); }
+        .green { color: var(--green); }
+        .orange { color: var(--orange); }
+        .red { color: var(--red); }
+
+        /* Content */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: white;
+            padding: 23px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .panel h3 {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 400px;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 12px;
+        }
+
+        td {
+            padding: 15px 12px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            background: #eaf2ff;
+            color: var(--primary);
+        }
+
+        .status.done {
+            background: #e6f7ef;
+            color: var(--green);
+        }
+
+        .status.warning {
+            background: #fff4df;
+            color: #c58920;
+        }
+
+        .status.danger {
+            background: #ffeded;
+            color: var(--red);
+        }
+
+        /* Buttons */
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 7px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn:hover {
+            background: #155fc9;
+        }
+
+        .btn-secondary {
+            background: #edf2f9;
+            color: var(--text);
+        }
+
+        /* Inventory bars */
+
+        .progress {
+            height: 8px;
+            background: #edf0f5;
+            border-radius: 20px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress div {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 20px;
+        }
+
+        .inventory-item {
+            margin-bottom: 24px;
+        }
+
+        .inventory-item small {
+            color: var(--muted);
+        }
+
+        /* Forms */
+
+        input, select {
+            padding: 11px;
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            margin: 7px 0 15px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .form-panel {
+            max-width: 550px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .empty {
+            color: var(--muted);
+            font-size: 13px;
+            padding: 15px 0;
+        }
+
+        /* Responsive */
+
+        @media(max-width: 950px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 650px) {
+            .sidebar {
+                width: 65px;
+                padding: 15px 7px;
+            }
+
+            .logo {
+                padding: 5px 0 25px;
+            }
+
+            .logo h2,
+            .logo small,
+            .nav-label {
+                display: none;
+            }
+
+            .nav-btn {
+                font-size: 0;
+                text-align: center;
+                padding: 14px 5px;
+            }
+
+            .nav-btn::first-letter {
+                font-size: 18px;
+            }
+
+            main {
+                margin-left: 65px;
+                width: calc(100% - 65px);
+                padding: 20px 12px;
+            }
+
+            .stats {
+                gap: 9px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .user {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🖨</div>
+            <div>
+                <h2>PrintSmart 360</h2>
+                <small>PRINTLAB MALAYSIA</small>
+            </div>
+        </div>
+
+        <div class="nav-label">Workspace</div>
+
+        <button class="nav-btn active"
+                onclick="showPage('dashboard', this)">
+            🏠 Dashboard
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('orders', this)">
+            📋 Production Scheduler
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('inventory', this)">
+            📦 Inventory Tracker
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('waste', this)">
+            ♻ Waste Monitoring
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('quality', this)">
+            🔧 Quality & Maintenance
+        </button>
+
+        <div class="nav-label">System</div>
+
+        <button class="nav-btn"
+                onclick="showPage('about', this)">
+            ℹ About PrintSmart
+        </button>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <header class="topbar">
+            <div>
+                <h1 id="page-title">Dashboard</h1>
+                <p>Welcome to PrintSmart 360 Production Management</p>
+            </div>
+
+            <div class="user">👤 Production Manager</div>
+        </header>
+
+        <!-- DASHBOARD -->
+
+        <section class="page active" id="dashboard">
+
+            <div class="stats">
+
+                <div class="card">
+                    <div class="stat-icon blue">📋</div>
+                    <div class="stat-label">Active Orders</div>
+                    <div class="stat-number">24</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-icon green">✓</div>
+                    <div class="stat-label">Completed Orders</div>
+                    <div class="stat-number">18</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-icon orange">📦</div>
+                    <div class="stat-label">Low Stock Items</div>
+                    <div class="stat-number">3</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-icon red">♻</div>
+                    <div class="stat-label">Material Waste</div>
+                    <div class="stat-number">8.5%</div>
+                </div>
+
+            </div>
+
+            <h2 class="section-title">Production Overview</h2>
+
+            <div class="content-grid">
+
+                <div class="panel">
+                    <div class="action-row">
+                        <h3>Recent Orders</h3>
+                        <button class="btn"
+                                onclick="showPage('orders')">
+                            View Orders
+                        </button>
+                    </div>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>Deadline</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="dashboard-orders">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <h3>Inventory Alerts</h3>
+
+                    <div class="inventory-item">
+                        <b>A4 Paper</b>
+                        <small> 15% remaining</small>
+                        <div class="progress">
+                            <div style="width:15%; background:#e45858"></div>
+                        </div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <b>Black Ink</b>
+                        <small> 30% remaining</small>
+                        <div class="progress">
+                            <div style="width:30%; background:#e6a23c"></div>
+                        </div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <b>Glossy Paper</b>
+                        <small> 75% remaining</small>
+                        <div class="progress">
+                            <div style="width:75%"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary"
+                            onclick="showPage('inventory')">
+                        Manage Inventory
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PRODUCTION SCHEDULER -->
+
+        <section class="page" id="orders">
+
+            <div class="action-row">
+                <h2 class="section-title">Production Orders</h2>
+                <button class="btn" onclick="showPage('new-order')">
+                    + New Order
+                </button>
+            </div>
+
+            <div class="panel">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Order Name</th>
+                        <th>Customer</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="order-list"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- ADD ORDER -->
+
+        <section class="page" id="new-order">
+
+            <h2 class="section-title">Create Production Order</h2>
+
+            <div class="panel form-panel">
+
+                <form id="order-form">
+
+                    <label>Order Name</label>
+                    <input id="order-name" required
+                           placeholder="e.g. Business Cards">
+
+                    <label>Customer Name</label>
+                    <input id="customer-name" required
+                           placeholder="Customer name">
+
+                    <label>Deadline</label>
+                    <input id="deadline" type="date" required>
+
+                    <label>Production Status</label>
+                    <select id="order-status">
+                        <option>Pending</option>
+                        <option>Printing</option>
+                        <option>Completed</option>
+                    </select>
+
+                    <button class="btn" type="submit">
+                        Create Order
+                    </button>
+
+                    <button class="btn btn-secondary" type="button"
+                            onclick="showPage('orders')">
+                        Cancel
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- INVENTORY -->
+
+        <section class="page" id="inventory">
+
+            <div class="action-row">
+                <h2 class="section-title">Inventory Management</h2>
+                <button class="btn" onclick="addStock()">
+                    + Add Stock
+                </button>
+            </div>
+
+            <div class="panel">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Quantity</th>
+                        <th>Stock Level</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="inventory-list"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- WASTE MONITORING -->
+
+        <section class="page" id="waste">
+
+            <div class="stats">
+
+                <div class="card">
+                    <div class="stat-label">Total Waste Recorded</div>
+                    <div class="stat-number">125 kg</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-label">Waste Percentage</div>
+                    <div class="stat-number">8.5%</div>
+                </div>
+
+            </div>
+
+            <h2 class="section-title">Waste Records</h2>
+
+            <div class="panel">
+
+                <form id="waste-form">
+                    <label>Material</label>
+                    <input id="waste-material" required
+                           placeholder="e.g. Paper">
+
+                    <label>Waste Quantity (kg)</label>
+                    <input id="waste-quantity" type="number"
+                           min="0.01" step="0.01" required>
+
+                    <label>Reason</label>
+                    <select id="waste-reason">
+                        <option>Printing Error</option>
+                        <option>Machine Calibration</option>
+                        <option>Damaged Material</option>
+                        <option>Other</option>
+                    </select>
+
+                    <button class="btn">Record Waste</button>
+                </form>
+
+            </div>
+
+            <div class="panel">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Quantity</th>
+                        <th>Reason</th>
+                    </tr>
+                    </thead>
+                    <tbody id="waste-list"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- QUALITY AND MAINTENANCE -->
+
+        <section class="page" id="quality">
+
+            <h2 class="section-title">Quality Control & Maintenance</h2>
+
+            <div class="stats">
+
+                <div class="card">
+                    <div class="stat-label">Reported Defects</div>
+                    <div class="stat-number">5</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-label">Machines Operational</div>
+                    <div class="stat-number">4/5</div>
+                </div>
+
+            </div>
+
+            <h2 class="section-title">Maintenance Records</h2>
+
+            <div class="panel">
+
+                <form id="maintenance-form">
+
+                    <label>Machine Name</label>
+                    <input id="machine-name" required
+                           placeholder="e.g. Printer A">
+
+                    <label>Maintenance Description</label>
+                    <input id="machine-description" required
+                           placeholder="Describe maintenance issue">
+
+                    <button class="btn">Add Maintenance Record</button>
+
+                </form>
+
+            </div>
+
+            <div class="panel">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Machine</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody id="maintenance-list"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- ABOUT -->
+
+        <section class="page" id="about">
+
+            <div class="panel">
+                <h2>About PrintSmart 360</h2>
+
+                <p style="margin-top:15px; line-height:1.8">
+                    PrintSmart 360 is a proposed digital production
+                    management system designed for Printlab Malaysia.
+                </p>
+
+                <br>
+
+                <h3>Our Mission</h3>
+
+                <p style="margin-top:10px; line-height:1.8">
+                    To improve printing production efficiency,
+                    reduce material waste, and support sustainable
+                    industrial innovation.
+                </p>
+
+                <br>
+
+                <h3>United Nations SDG 9</h3>
+
+                <p style="margin-top:10px; line-height:1.8">
+                    Industry, Innovation and Infrastructure.
+                    PrintSmart 360 aims to encourage more efficient,
+                    sustainable and innovative industrial processes.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script>
+
+    // NAVIGATION
+
+    function showPage(page, button) {
+
+        document.querySelectorAll('.page')
+            .forEach(p => p.classList.remove('active'));
+
+        document.querySelectorAll('.nav-btn')
+            .forEach(b => b.classList.remove('active'));
+
+        document.getElementById(page).classList.add('active');
+
+        if (button) {
+            button.classList.add('active');
+        }
+
+        const titles = {
+            dashboard: 'Dashboard',
+            orders: 'Production Scheduler',
+            'new-order': 'New Production Order',
+            inventory: 'Inventory Tracker',
+            waste: 'Waste Monitoring',
+            quality: 'Quality & Maintenance',
+            about: 'About PrintSmart 360'
+        };
+
+        document.getElementById('page-title').textContent =
+            titles[page] || page;
+    }
+
+    // SAMPLE DATA
+
+    let orders = [
+        {
+            name: 'Business Cards',
+            customer: 'ABC Company',
+            deadline: '2026-11-20',
+            status: 'Printing'
+        },
+        {
+            name: 'Product Labels',
+            customer: 'XYZ Enterprise',
+            deadline: '2026-11-21',
+            status: 'Pending'
+        },
+        {
+            name: 'Marketing Posters',
+            customer: 'Printlab Client',
+            deadline: '2026-11-18',
+            status: 'Completed'
+        }
+    ];
+
+    let inventory = [
+        {name:'A4 Paper', quantity:150, unit:'reams', max:1000},
+        {name:'Black Ink', quantity:30, unit:'litres', max:100},
+        {name:'Glossy Paper', quantity:750, unit:'sheets', max:1000},
+        {name:'Cyan Ink', quantity:80, unit:'litres', max:100}
+    ];
+
+    let waste = [];
+    let maintenance = [];
+
+    // STATUS CLASS
+
+    function statusClass(status) {
+        if (status === 'Completed') return 'done';
+        if (status === 'Pending') return 'warning';
+        if (status === 'Low Stock') return 'danger';
+        return '';
+    }
+
+    // RENDER ORDERS
+
+    function renderOrders() {
+
+        const rows = orders.map(order => `
+        <tr>
+            <td>${escapeHTML(order.name)}</td>
+            <td>${escapeHTML(order.customer)}</td>
+            <td>${escapeHTML(order.deadline)}</td>
+            <td>
+                <span class="status ${statusClass(order.status)}">
+                    ${escapeHTML(order.status)}
+                </span>
+            </td>
+        </tr>
+    `).join('');
+
+        document.getElementById('order-list').innerHTML = rows;
+
+        document.getElementById('dashboard-orders').innerHTML =
+            orders.slice(0, 3).map(order => `
+            <tr>
+                <td>${escapeHTML(order.name)}</td>
+                <td>
+                    <span class="status ${statusClass(order.status)}">
+                        ${escapeHTML(order.status)}
+                    </span>
+                </td>
+                <td>${escapeHTML(order.deadline)}</td>
+            </tr>
+        `).join('');
+    }
+
+    // CREATE ORDER
+
+    document.getElementById('order-form')
+        .addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            orders.push({
+                name: document.getElementById('order-name').value,
+                customer: document.getElementById('customer-name').value,
+                deadline: document.getElementById('deadline').value,
+                status: document.getElementById('order-status').value
+            });
+
+            renderOrders();
+            this.reset();
+            showPage('orders');
+        });
+
+    // RENDER INVENTORY
+
+    function renderInventory() {
+
+        document.getElementById('inventory-list').innerHTML =
+            inventory.map(item => {
+
+                const percentage = Math.min(
+                    100, item.quantity / item.max * 100
+                );
+
+                const low = percentage <= 30;
+
+                return `
+                <tr>
+                    <td>${escapeHTML(item.name)}</td>
+                    <td>${item.quantity} ${escapeHTML(item.unit)}</td>
+                    <td>
+                        <div class="progress">
+                            <div style="width:${percentage}%;
+                                background:${low ? '#e45858' : '#2679f5'}">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status ${low ? 'danger' : 'done'}">
+                            ${low ? 'Low Stock' : 'Available'}
+                        </span>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+    }
+
+    // ADD STOCK
+
+    function addStock() {
+
+        const name = prompt('Enter material name:');
+        if (!name || !name.trim()) return;
+
+        const quantity = Number(prompt('Enter quantity to add:'));
+
+        if (!Number.isFinite(quantity) || quantity <= 0) {
+            alert('Please enter a valid positive quantity.');
+            return;
+        }
+
+        const existing = inventory.find(
+            item => item.name.toLowerCase() === name.trim().toLowerCase()
+        );
+
+        if (existing) {
+            existing.quantity += quantity;
+        } else {
+            inventory.push({
+                name: name.trim(),
+                quantity: quantity,
+                unit: 'units',
+                max: Math.max(quantity, 100)
+            });
+        }
+
+        renderInventory();
+    }
+
+    // WASTE RECORDING
+
+    document.getElementById('waste-form')
+        .addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            waste.push({
+                material: document.getElementById('waste-material').value,
+                quantity: document.getElementById('waste-quantity').value,
+                reason: document.getElementById('waste-reason').value
+            });
+
+            document.getElementById('waste-list').innerHTML =
+                waste.map(item => `
+            <tr>
+                <td>${escapeHTML(item.material)}</td>
+                <td>${escapeHTML(item.quantity)} kg</td>
+                <td>${escapeHTML(item.reason)}</td>
+            </tr>
+        `).join('');
+
+            this.reset();
+        });
+
+    // MAINTENANCE RECORDING
+
+    document.getElementById('maintenance-form')
+        .addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            maintenance.push({
+                machine: document.getElementById('machine-name').value,
+                description:
+                document.getElementById('machine-description').value
+            });
+
+            document.getElementById('maintenance-list').innerHTML =
+                maintenance.map(item => `
+            <tr>
+                <td>${escapeHTML(item.machine)}</td>
+                <td>${escapeHTML(item.description)}</td>
+            </tr>
+        `).join('');
+
+            this.reset();
+        });
+
+    // BASIC HTML ESCAPING
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        })[char]);
+    }
+
+    // INITIALIZE
+
+    renderOrders();
+    renderInventory();
+
+</script>
+
+</body>
+</html>
